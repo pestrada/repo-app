@@ -13,6 +13,10 @@ class MemoryRepository
     @records[id]
   end
 
+  def retrieve_all
+    @records
+  end
+
   def update(model)
     @records[model.id] = model
   end

@@ -3,7 +3,10 @@ module Repository
   def create(model)
   end
 
-  def retrieve
+  def retrieve(id)
+  end
+
+  def retrieve_all
   end
 
   def update(model)

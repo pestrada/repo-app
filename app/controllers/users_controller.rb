@@ -1,10 +1,14 @@
+require 'MemoryRepository'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  @@memoryRepository = MemoryRepository.new
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = @@memoryRepository.retrieve_all
   end
 
   # GET /users/1
@@ -24,15 +28,14 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    user = User.new(user_params)
+    @user = @@memoryRepository.create(user)
 
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
+      if @user == nil
         format.json { render json: @user.errors, status: :unprocessable_entity }
+      else
+        format.html { redirect_to users_path }
       end
     end
   end

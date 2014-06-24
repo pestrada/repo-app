@@ -30,6 +30,11 @@ class RepositoryTest < ActiveSupport::TestCase
     assert user == nil
   end
 
+  test "retrieve all users" do
+    users = @repository.retrieve_all
+    assert users != nil
+  end
+
   test "update a user" do
     new_user = @repository.create(fake_user)
     user = @repository.retrieve(new_user.id)
